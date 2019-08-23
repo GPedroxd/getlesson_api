@@ -34,13 +34,13 @@
                     $currentController = 'NotfoundController';
                     $currentAction = 'index';
             }
-            
             $newController = $prefix.$currentController;
             $controller = new $newController();
             call_user_func_array(array($controller, $currentAction), $params);
         }
         public function checkRouter($url){
             global $routers;
+
             foreach ($routers as $ul => $newUrl){
                 $pattern = preg_replace('(\{[a-z0-9]{1,}\})','([a-z0-9-]{1,})',
                                         $ul);  
