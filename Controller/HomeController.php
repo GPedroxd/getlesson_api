@@ -10,4 +10,7 @@
         public function testando(){
             echo 'graças a deus';
         }
+        public function testando2(){
+            
+        }
     }
