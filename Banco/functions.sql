@@ -1,0 +1,6 @@
+DELIMITER }
+	CREATE FUNCTION sfCadastrarProfessor(nome VARCHAR(100),rm VARCHAR(8),senha VARCHAR(255),email VARCHAR(255))RETURNS INT
+    BEGIN
+		
+    END
+}
