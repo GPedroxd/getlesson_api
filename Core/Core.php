@@ -40,7 +40,6 @@
         }
         public function checkRouter($url){
             global $routers;
-
             foreach ($routers as $ul => $newUrl){
                 $pattern = preg_replace('(\{[a-z0-9]{1,}\})','([a-z0-9-]{1,})',
                                         $ul);  
