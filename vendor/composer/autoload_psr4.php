@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Model\\' => array($baseDir . '/Model'),
+    'DAO\\' => array($baseDir . '/DAO'),
     'Core\\' => array($baseDir . '/Core'),
     'Controller\\' => array($baseDir . '/Controller'),
 );

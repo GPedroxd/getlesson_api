@@ -1,4 +1,5 @@
 <?php   
     global $routers;
     $routers = array();
-    $routers['/teste'] = '/home/testando';
+    $routers['/login'] = '/user/login';
+    $routers['/singin'] = '/user/sing_in';

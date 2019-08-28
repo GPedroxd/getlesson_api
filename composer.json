@@ -6,7 +6,8 @@
         "psr-4": {
             "Core\\":"Core/",
             "Controller\\":"Controller/",
-            "Model\\":"Model/"
+            "Model\\":"Model/",
+            "DAO\\":"DAO/"
         }
     }
 }
