@@ -24,10 +24,10 @@
                         }
                     }
                 }else{
-                    $array['error'] = 'acesso neagado';
+                    $array['error'] = 'acesso negado';
                 }
             }else{
-                $array['error'] = 'Método de requisição inconpativel';
+                $array['error'] = 'Método de requisição incompativel';
             }
             $this->returnJson($array);
         }
