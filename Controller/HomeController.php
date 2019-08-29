@@ -8,4 +8,7 @@
         }
         public function testando(){
         }
+        public function testando2(){
+            
+        }
     }
