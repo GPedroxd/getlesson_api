@@ -27,10 +27,10 @@
                     $array = json_decode($this->base64url_decode($jwt_split[1]));
                     return $array;
                 }else{
-                    return false;
+                    return $array;
                 }
             }else{
-                return false;
+                return $array;
             }
         }
 

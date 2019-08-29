@@ -6,6 +6,7 @@
     use Model\Jwt;
 
     class UserDAO extends DAO{
+        private $user;
         public function login(string $email, string $pass){
             $query = "select * from tbusuario where emailusuario like
                         :email and senhausuario like :pass";
@@ -16,13 +17,9 @@
             if($query->rowCount() > 0){
                 $data = $query->fetch();
                 $user = new User(
-                    $data['idUsuario'],
-                    $data['nomeUsuario'],
-                    $data['rmUsuario'],
-                    $data['emailUsuario'],
-                    $data['senhaUsuario'],
-                    $data['nivel']
+                    $data['idUsuario']
                 );
+                $this->user = $user;
                 return $user;
             }else{
                 return false;
@@ -45,13 +42,9 @@
                 if($query->rowCount() > 0){
                     $data = $query->fetch();
                     $user = new User(
-                        $data['idUsuario'],
-                        $data['nomeUsuario'],
-                        $data['rmUsuario'],
-                        $data['emailUsuario'],
-                        $data['senhaUsuario'],
-                        $data['nivel']
+                        $data['idUsuario']
                     );
+                    $this->user = $user;
                     return $user;
                 }else{
                     return false;
@@ -62,14 +55,19 @@
         }   
         public function createJwt(User $user){
             $jwt = new Jwt();
-            return $jwt->create(array('idUsuario'=> $user->getIdusuario(),
-                                      'nomeUsuario'=> $user->getNomeusuario(),
-                                      'rmUsuario'=> $user->getRmusuario(),
-                                      'email'=> $user->getEmailusuario(),
-                                      'password'=> $user->getSenhausuario(),
-                                      'nivel'=> $user->getNivel()
+            return $jwt->create(array('idUsuario'=> $user->getIdusuario()
                                     ));
         }
+        public function validate_jwt($token){
+            $jwt = new Jwt();
+            $info = $jwt->validate($token);
+            if(!empty($info)){
+                $this->user = new User($info->idUsuario);
+                return true;
+            }else{
+                return false;
+            }
+        }   
         private function emailExists($email){
             $query = "select idusuario from tbUsuario where emailUsuario like :email";
             $query = $this->pdo->prepare($query);
@@ -80,5 +78,8 @@
             }else{
                 return false;
             }
+        }
+        public function getId(){
+            return $this->user->getIdUsuario();
         }
     }

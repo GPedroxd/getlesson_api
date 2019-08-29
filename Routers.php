@@ -2,4 +2,5 @@
     global $routers;
     $routers = array();
     $routers['/login'] = '/user/login';
-    $routers['/singin'] = '/user/sing_in';
+    $routers['/sing-in'] = '/user/sing_in';
+    $routers['/user/{id}'] ='/user/view/:id';

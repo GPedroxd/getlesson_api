@@ -56,4 +56,34 @@ class UserController extends Controller{
             }
             $this->returnJson($array);
         }
+        public function view($id){
+            $array = array('error'=>'', 'logged'=>false);
+            $method = $this->getMethod();
+            $data = $this->getRequestData();
+            $dao = new UserDAO();
+            if(!empty($data['jwt']) && $dao->validate_jwt($data['jwt'])){
+                $array['logged'] = true;
+                $array['is_me'] = false;
+                if($id == $dao->getId()){
+                    $array['is_me'] = true;
+                }
+                switch($method){
+                    case 'GET':
+                        
+                        break;
+                    case 'PUT':
+                    
+                        break;
+                    case 'DELETE':
+
+                        break;
+                    default:
+                        $array['error'] = 'Método '.$method.' não disponivel';
+                        break;
+                }
+            }else{
+                $array['error']= 'acesso negado';
+            }
+            $this->returnJson($array);
+        }
     }
