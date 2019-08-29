@@ -50,6 +50,8 @@ class UserController extends Controller{
                     }else{
                         $array ['error'] = 'E-mail Invalido';
                     }
+                }else{
+                    $array['error'] = 'tudo vazio';
                 }
             }else{
                 $array ['error'] = 'Método de envio incompativel';
