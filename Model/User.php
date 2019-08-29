@@ -1,8 +1,6 @@
 <?php   
     namespace Model;
 
-    use Core\Controller;
-
     class User{
         private $idusuario;
 
