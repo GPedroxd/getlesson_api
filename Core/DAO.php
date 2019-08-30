@@ -1,6 +1,6 @@
 <?php
     namespace Core;
-
+    
     class DAO {
         protected $pdo;
         protected $info;

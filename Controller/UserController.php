@@ -6,7 +6,7 @@
     use Model\Jwt;
 
 class UserController extends Controller{
-        public function login(){
+        public function sing_in(){
             $array = array('error'=>'');
             $method = $this->getMethod();
             $data = $this->getRequestData();
@@ -23,9 +23,10 @@ class UserController extends Controller{
             }else{
                 $array ['error'] = 'Método de requisição incompativel';
             }
+            echo 'asdfÇÇ á á á ôã';
             $this->returnJson($array);
         }
-        public function sing_in(){
+        public function sing_up(){
             $array = array('error' =>'');
             $method = $this->getMethod();
             $data = $this->getRequestData();

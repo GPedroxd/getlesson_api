@@ -34,7 +34,7 @@
             $method = $this->getMethod();
             $data = $this->getRequestData();
             $user = new UserDAO();
-            if($method == 'POST'){
+            if($method == 'GET'){
                 if(!empty($data['jwt']) && $user->validate_jwt($data['jwt'])){
                         $daoC = new ComponenteDAO();
                         $dados = $daoC->getAll();
