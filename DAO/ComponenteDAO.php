@@ -19,15 +19,13 @@
             }
         }
         public function getAll(){
+            $array = array();
             $sql = "select * from tbComponente";
             $sql = $this->pdo->prepare($sql);
             $sql->execute();
             if($sql->rowCount() > 0){
-                $dados = $sql->fetchAll(\PDO::FETCH_ASSOC);
-                
-                return $dados;
-            }else{
-                return false;
+                $array = $sql->fetchAll(\PDO::FETCH_ASSOC);  
             }
+            return $array;
         }
     }
