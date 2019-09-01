@@ -40,7 +40,9 @@
                 $query->bindValue(':nivel', $nivel);
                 $query->execute();
                 if($query->rowCount() > 0){
-                    return true;
+                    $user = new User($this->getId($email));
+                    $this->user = $user;
+                    return $user;
                 }else{
                     return false;
                 }
@@ -74,7 +76,56 @@
                 return false;
             }
         }
-        public function getId(){
+        public function getId($email){
+            $sql = "select id from tbUsuario where emailUsuario = :email";
+            $sql = $this->pdo->prepare($sql);
+            $sql->bindValue(":email", $email);
+            $sql->exercute();
+            if($sql->rowCount() > 0){
+                $id = $sql->fetch();
+                $id = $id['idUsuario'];
+                return $id;
+            }else{
+                return null;
+            }
+        }
+        public function getIdUsuario(){
             return $this->user->getIdUsuario();
+        }
+        public function editUser($id, $data){
+            if($id === $this->user->getIdUsuario()){
+                $toChange = array();
+                if(!empty($data['nomeUsuario'])){
+                    $toChange['name'] = $data['name'];
+                }
+                if(!empty($data['emailUsuario'])){
+                    if(filter_var($data['emailUsuario'], FILTER_VALIDATE_EMAIL)){
+                        if(!$this->emailExists($data['emailUsuario'])){
+                            $toChange['emailUsuario'] = $data['emailUsuario'];
+                        }else{
+                            return "Email já existente";
+                        }
+                    }else{
+                        return "Email Inválido";
+                    }
+                }
+                if(!empty($data['senhaUsuario'])){
+                    $toChange['senhaUsuario'] = md5($data['senhaUsuario']);
+                }
+                
+                if(count($toChange) > 0){
+                    $fields  = array();
+                    foreach($toChange as $k => $v){
+                        $fields[] = $k.' = :'.$k;
+                    }
+                    $sql = "update tbusuario set ".implode(',',$fields )." where idUsuario = :id";
+                    $sql = $this->pdo->prepare($sql);
+                    $sql->bindValue(':id', $id);
+                    foreach($toChange as $k => $v){
+                        $sql->bindValue(':'.$k, $v);
+                    }
+                    $sql->execute();
+                }
+            }
         }
     }

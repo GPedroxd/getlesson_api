@@ -66,7 +66,7 @@ class UserController extends Controller{
             if(!empty($data['jwt']) && $dao->validate_jwt($data['jwt'])){
                 $array['logged'] = true;
                 $array['is_me'] = false;
-                if($id == $dao->getId()){
+                if($id == $dao->getIdUsuario()){
                     $array['is_me'] = true;
                 }
                 switch($method){
@@ -74,7 +74,7 @@ class UserController extends Controller{
                         
                         break;
                     case 'PUT':
-                    
+                        $array['error'] = $dao->editUser($id, $data);
                         break;
                     case 'DELETE':
 
