@@ -24,10 +24,9 @@
             $sql->execute();
 
             if($sql->rowCount() > 0){
-                $this->turma = new Turma($data['idTurma']);
-                return  $data;
+                return true;
             }else{
-                false;
+                return false;
             }
         } 
         public function getTurma(){

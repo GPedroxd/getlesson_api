@@ -40,12 +40,7 @@
                 $query->bindValue(':nivel', $nivel);
                 $query->execute();
                 if($query->rowCount() > 0){
-                    $data = $query->fetch();
-                    $user = new User(
-                        $data['idUsuario']
-                    );
-                    $this->user = $user;
-                    return $user;
+                    return true;
                 }else{
                     return false;
                 }

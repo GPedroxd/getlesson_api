@@ -23,7 +23,6 @@ class UserController extends Controller{
             }else{
                 $array ['error'] = 'Método de requisição incompativel';
             }
-            echo 'asdfÇÇ á á á ôã';
             $this->returnJson($array);
         }
         public function sing_up(){

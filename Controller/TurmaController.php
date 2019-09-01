@@ -25,7 +25,6 @@
                             $data['cursoTurma'],
                             $data['periodoTurma']
                         );
-                        print_r($turma);
                         if($turma){
                             return $turma;
                         }else{

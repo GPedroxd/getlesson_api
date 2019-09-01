@@ -14,9 +14,7 @@ class CursoDAO extends DAO{
                 $sql->bindValue(':curso', $curso);
                 $sql->execute();
                 if($sql->rowCount() > 0){
-                    $data = $sql->fetch();
-                    $this->curso = new Curso($data['nomeCurso']);
-                    return $this->curso; 
+                    return true;
                 }else{
                     return false;
                 }
