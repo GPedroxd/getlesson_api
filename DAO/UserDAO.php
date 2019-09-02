@@ -125,7 +125,32 @@
                         $sql->bindValue(':'.$k, $v);
                     }
                     $sql->execute();
+                    return '';
                 }
+            }else{
+                return 'Sem Permisão';
+            }
+        }
+        public function getAll($id){
+            if($id === $this->user->getIdUsuario()){
+                $sql = "select * from tbUsuario where idUsuario != :id";
+                $sql = $this->pdo->prepare($sql);
+                $sql->bindValue(':id', $id);
+                $sql->execute();
+                return '';
+            }else{
+                return "Sem Permisão";
+            }
+        }
+        public function delete($id){
+            if($id  === $this->user->getIdUsuario()){
+                $sql = "update tbUsuario set ativo = 1 where idUsuario = :id";
+                $sql = $this->pdo->prepare($sql);
+                $sql->bindValue(':id', $id);
+                $sql->execute();
+                return '';
+            }else{
+                return "Sem Permisao";
             }
         }
     }

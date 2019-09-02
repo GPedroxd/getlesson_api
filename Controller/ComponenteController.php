@@ -6,19 +6,23 @@
     use DAO\UserDAO;
 
     class ComponenteController extends Controller{
+        private $daoU;
+        private $daoC;
+        public function __construct(){
+            $this->daoU = new UserDAO();
+            $this->daoC = new ComponenteDAO();
+        }
         public function register(){
             $array = array('error'=> '');
             $method = $this->getMethod();
             $data = $this->getRequestData();
-            $user = new UserDAO();
             if($method == 'POST'){
-                if(!empty($data['jwt']) && $user->validate_jwt($data['jwt'])){
+                if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
                     if(!empty($data['nomeComponente']) && !empty($data['sigla'])){
-                        $daoC = new ComponenteDAO();
-                        if($daoC->register($data['nomeComponente'], $data['sigla'])){
-                            $array['success'] = true;
+                        if($this->daoC->register($data['nomeComponente'], $data['sigla'])){
+
                         }else{
-                            $array['success'] = false;
+                            $array['error'] = 'Falha ao Cadastrar';
                         }
                     }
                 }else{
@@ -26,6 +30,25 @@
                 }
             }else{
                 $array['error'] = 'Método de requisição invalido';
+            }
+            $this->returnJson($array);
+        }
+        public function editComponente($id){
+            $array = array('error' => '');
+            $method = $this->getMethod();
+            $data = $this->getRequestData();
+            $daoU = new UserDAO();
+            if(!empty($data['jwt']) && $daoU->validate_jwt($data['jwt'])){
+                switch ($method){
+                    case 'DELETE':
+                        $array['error'] = $this->daoC->delete($id);
+                        break;
+                    case 'PUT':
+                        $array['error'] =$this->daoC->editComponente($id, $data);
+                        break;
+                }
+            }else{
+                $array['error'] = 'Acesso Nagado';
             }
             $this->returnJson($array);
         }

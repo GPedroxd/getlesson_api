@@ -4,6 +4,7 @@ CREATE TABLE tbComponente(
 	idComponente INT PRIMARY KEY AUTO_INCREMENT
     ,	nomeComponente VARCHAR(80) NOT NULL
     ,	siglaComponente VARCHAR(10) NOT NULL
+    ,   ativo TINYINT UNSIGNED NOT NULL DEFAULT 1
 );
 
 CREATE TABLE tbUsuario(
@@ -13,11 +14,14 @@ CREATE TABLE tbUsuario(
 	,	senhaUsuario VARCHAR(255) NOT NULL
     ,	emailUsuario VARCHAR(255) NOT NULL
     ,	nivel INT NOT NULL
+    ,   ativo TINYINT UNSIGNED NOT NULL DEFAULT 1
+
 );
 
 CREATE TABLE tbCurso(
 	idCurso INT PRIMARY KEY AUTO_INCREMENT
     ,	nomeCurso VARCHAR(80)
+    , ativo TINYINT UNSIGNED NOT NULL DEFAULT 1
 );
 
 CREATE TABLE tbPeriodo(
@@ -39,6 +43,7 @@ CREATE TABLE tbTurma(
     ,	statusTurma INT NOT NULL
     ,	idCurso INT NOT NULL
     ,	idPeriodo INT NOT NULL
+    ,   ativo TINYINT UNSIGNED NOT NULL DEFAULT 1
 	,	CONSTRAINT fk_TurmaCurso FOREIGN KEY (idCurso) REFERENCES tbCurso(idCurso)
     ,	CONSTRAINT fk_TurmaPeriodo FOREIGN KEY (idPeriodo) REFERENCES tbPeriodo(idPeriodo)
 );

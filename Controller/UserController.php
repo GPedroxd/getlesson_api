@@ -71,13 +71,13 @@ class UserController extends Controller{
                 }
                 switch($method){
                     case 'GET':
-                        
+                        $array['data'] = $dao->getAll($id);
                         break;
                     case 'PUT':
                         $array['error'] = $dao->editUser($id, $data);
                         break;
                     case 'DELETE':
-
+                        $array ['error'] = $dao->delete($id);
                         break;
                     default:
                         $array['error'] = 'Método '.$method.' não disponivel';
