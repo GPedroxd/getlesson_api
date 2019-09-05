@@ -4,6 +4,7 @@
     $routers['/sing-in'] = '/user/sing_in';
     $routers['/sing-up'] = '/user/sing_up';
     $routers['/user/{id}'] ='/user/view/:id';
+    $routers['/user'] = '/user/getAll';
     $routers['/curso/register'] = '/Curso/register';
     $routers['/curso/{id}'] = '/curso/editCurso/:id';
     $routers['/curso'] = '/curso/getAll';

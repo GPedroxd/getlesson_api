@@ -9,6 +9,5 @@
             global $info;
             $this->pdo = $pdo;
             $this->$info = $info;
-
         }
     }

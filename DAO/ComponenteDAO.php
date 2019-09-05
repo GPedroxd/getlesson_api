@@ -33,6 +33,9 @@
             if(!empty($data['nomeComponente'])){
                 $toChange['nomeComponente'] = $data['nomeComponente'];
             }
+            if(!empty($data['ativo'])){
+                $toChange['ativo'] = $data['ativo'];
+            }
             if(count($toChange) > 0){
                 $fields  = array();
                 foreach($toChange as $k => $v){

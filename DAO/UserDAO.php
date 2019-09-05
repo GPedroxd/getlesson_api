@@ -80,7 +80,7 @@
             $sql = "select id from tbUsuario where emailUsuario = :email";
             $sql = $this->pdo->prepare($sql);
             $sql->bindValue(":email", $email);
-            $sql->exercute();
+            $sql->execute();
             if($sql->rowCount() > 0){
                 $id = $sql->fetch();
                 $id = $id['idUsuario'];
@@ -93,10 +93,9 @@
             return $this->user->getIdUsuario();
         }
         public function editUser($id, $data){
-            if($id === $this->user->getIdUsuario()){
                 $toChange = array();
                 if(!empty($data['nomeUsuario'])){
-                    $toChange['name'] = $data['name'];
+                    $toChange['nomeUsuario'] = $data['nomeUsuario'];
                 }
                 if(!empty($data['emailUsuario'])){
                     if(filter_var($data['emailUsuario'], FILTER_VALIDATE_EMAIL)){
@@ -112,7 +111,6 @@
                 if(!empty($data['senhaUsuario'])){
                     $toChange['senhaUsuario'] = md5($data['senhaUsuario']);
                 }
-                
                 if(count($toChange) > 0){
                     $fields  = array();
                     foreach($toChange as $k => $v){
@@ -127,30 +125,22 @@
                     $sql->execute();
                     return '';
                 }
-            }else{
-                return 'Sem Permisão';
-            }
         }
-        public function getAll($id){
-            if($id === $this->user->getIdUsuario()){
-                $sql = "select * from tbUsuario where idUsuario != :id";
+        public function getAll(){
+                $sql = "select * from tbUsuario where ativo != 0";
                 $sql = $this->pdo->prepare($sql);
-                $sql->bindValue(':id', $id);
                 $sql->execute();
-                return '';
-            }else{
-                return "Sem Permisão";
-            }
+                if($sql->rowCount() > 0){
+                    return $sql->fetchAll(\PDO::FETCH_ASSOC);
+                }else{
+                    return 'nenhum usuário encontrado';
+                }
         }
         public function delete($id){
-            if($id  === $this->user->getIdUsuario()){
-                $sql = "update tbUsuario set ativo = 1 where idUsuario = :id";
+                $sql = "update tbUsuario set ativo = 0 where idUsuario = :id";
                 $sql = $this->pdo->prepare($sql);
                 $sql->bindValue(':id', $id);
                 $sql->execute();
                 return '';
-            }else{
-                return "Sem Permisao";
-            }
         }
     }

@@ -46,15 +46,26 @@
             return '';
         }
         public function editCurso($id, $data){
-            if(!empty($data['curso'])){
-                $sql = "update tbCurso set nomeCurso = :nome where idCurso = :id";
+            $toChange = array();
+            if(!empty($data['nomeCurso'])){
+                $toChange['nomeCurso'] = $data['nomeCurso'];
+            }
+            if(!empty($data['ativo'])){
+                $toChange['ativo'] = $data['ativo'];
+            }
+            if(count($toChange) > 0){
+                $fields  = array();
+                foreach($toChange as $k => $v){
+                    $fields[] = $k.' = :'.$k;
+                }
+                $sql = "update tbCurso set ".implode(',',$fields )." where idCurso = :id";
                 $sql = $this->pdo->prepare($sql);
-                $sql->bindValue(':nome', $data['curso']);
                 $sql->bindValue(':id', $id);
+                foreach($toChange as $k => $v){
+                    $sql->bindValue(':'.$k, $v);
+                }
                 $sql->execute();
                 return '';
-            }else{
-                return 'Preencha todos os campos';
             }
         }
         public function getAll(){

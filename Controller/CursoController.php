@@ -7,19 +7,21 @@
 
     class CursoController extends Controller{
         private $dao;
+        private $daoU;
         public function __construct(){
             $this->dao = new CursoDAO();
+            $this->daoU = new UserDAO();
         }
         public function register(){
             $array = array('error'=>'');
             $method = $this->getMethod();
             $data = $this->getRequestData();
-            $daoU = new UserDAO();
             if($method =='POST'){
-                if(!empty($data['jwt']) && $daoU->validate_jwt($data['jwt'])){
-                    if(!empty($data['curso'])){
-                        $curso = $this->dao->register($data['curso']);
+                if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
+                    if(!empty($data['nomeCurso'])){
+                        $curso = $this->dao->register($data['nomeCurso']);
                         if($curso){
+                            
                         }else{
                             $array['error'] = 'Curso já cadastrado';
                         }
@@ -36,8 +38,7 @@
             $array = array('error' => '');
             $method = $this->getMethod();
             $data = $this->getRequestData();
-            $daoU = new UserDAO();
-            if(!empty($data['jwt']) && $daoU->validate_jwt($data['jwt'])){
+            if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
                 switch ($method){
                     case 'DELETE':
                         $array['error'] = $this->dao->delete($id);
@@ -55,9 +56,8 @@
             $array = array('error' => '');
             $method = $this->getMethod();
             $data = $this->getRequestData();
-            $daoU = new UserDAO();
             if($method == 'GET'){
-                if(!empty($data['jwt']) && $daoU->validate_jwt($data['jwt'])){
+                if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
                         $array['data'] = $this->dao->getAll();
                 }else{
                     $array['error'] = 'Acesso Inválido';

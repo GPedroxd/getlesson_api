@@ -29,7 +29,7 @@
             }
         } 
         public function delete($id){
-            $sql = "update tbTurma set ativo = 1 where idTurma = :id";
+            $sql = "update tbTurma set ativo = 0 where idTurma = :id";
             $sql = $this->pdo->prepare($sql);
             $sql->bindValue(':id', $id);
             $sql->execute();
@@ -54,6 +54,9 @@
             }
             if(!empty($data['idPeriodo'])){
                 $toChange['idPeriodo'] = $data['idPeriodo'];
+            }
+            if(!empty($data['ativo'])){
+                $toChange['ativo'] = $data['ativo'];
             }
             if(count($toChange) > 0){
                 $fields  = array();

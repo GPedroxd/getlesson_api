@@ -30,11 +30,12 @@
                             $data['periodoTurma']
                         );
                         if($turma){
-                            return $turma;
+                            
                         }else{
                             $array['error'] = 'Falha ao cadastrar';
                         }
                     }
+                    $array['error'] = 'preencha todos os campos';
                 }else{
                     $array['error'] = 'acesso neagado';
                 }
@@ -65,9 +66,8 @@
             $array = array('error' => '');
             $method = $this->getMethod();
             $data = $this->getRequestData();
-            $daoU = new UserDAO();
             if($method == 'GET'){
-                if(!empty($data['jwt']) && $daoU->validate_jwt($data['jwt'])){
+                if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
                         $array['data'] = $this->daoT->getAll();
                 }else{
                     $array['error'] = 'Acesso Inválido';
