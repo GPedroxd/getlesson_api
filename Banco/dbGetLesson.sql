@@ -40,7 +40,6 @@ CREATE TABLE tbTurma(
     ,	semestreTurma VARCHAR(20) NOT NULL
     ,	anoTurma VARCHAR(5) NOT NULL
     ,	ultimoDiaTurma DATE NOT NULL
-    ,	statusTurma INT NOT NULL
     ,	idCurso INT NOT NULL
     ,	idPeriodo INT NOT NULL
     ,   ativo TINYINT UNSIGNED NOT NULL DEFAULT 1

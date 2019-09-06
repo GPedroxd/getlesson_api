@@ -18,24 +18,25 @@
             if($method =='POST'){
                 if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
                     if(!empty($data['nomeTurma']) && !empty($data['semestreTurma'])
-                        && !empty($data['anoTurma']) && !empty($data['fimTurma'])
-                        && !empty($data['cursoTurma']) && !empty($data['periodoTurma'])
+                        && !empty($data['anoTurma']) && !empty($data['ultimoDiaTurma'])
+                        && !empty($data['idCurso']) && !empty($data['idPeriodo'])
                         ){
                         $turma = $this->daoT->register(
                             $data['nomeTurma'],
                             $data['semestreTurma'],
                             $data['anoTurma'],
-                            $data['fimTurma'],
-                            $data['cursoTurma'],
-                            $data['periodoTurma']
+                            $data['ultimoDiaTurma'],
+                            $data['idCurso'],
+                            $data['idPeriodo']
                         );
                         if($turma){
                             
                         }else{
                             $array['error'] = 'Falha ao cadastrar';
                         }
+                    }else{
+                        $array['error'] = 'preencha todos os campos';
                     }
-                    $array['error'] = 'preencha todos os campos';
                 }else{
                     $array['error'] = 'acesso neagado';
                 }

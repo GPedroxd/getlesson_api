@@ -41,7 +41,7 @@
                 $toChange['nomeTurma'] = $data['nomeTurma'];
             }
             if(!empty($data['semestreTurma'])){
-                $toChange['semestreTurma'] = $data['semesteTurma'];
+                $toChange['semestreTurma'] = $data['semestreTurma'];
             }
             if(!empty($data['anoTurma'])){
                 $toChange['anoTurma'] = $data['anoTurma'];
