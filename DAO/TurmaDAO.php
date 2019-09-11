@@ -74,7 +74,7 @@
             }
         }
         public function getAll(){
-            $sql = "select * from tbTurma ";
+            $sql = "select * from tbTurma where ativo = 1 ";
             $sql = $this->pdo->prepare($sql);
             $sql->execute();
             if($sql->rowCount() > 0){

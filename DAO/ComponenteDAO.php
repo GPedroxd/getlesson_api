@@ -5,7 +5,12 @@
     use Model\Componente;
 
     class ComponenteDAO extends DAO{
-        public function register($nome, $sigla){
+        public function register($nome, $sigla, $idUsuarior, $idTurma){
+            if($this->insertComponente($nome, $sigla)){
+                
+            }
+        }
+        private function insertComponente($nome, $sigla){
             $sql = "insert into tbComponente set nomeComponente = :nome,
                                                                         siglaComponente = :sigla";
             $sql = $this->pdo->prepare($sql);
@@ -53,7 +58,7 @@
         }
         public function getAll(){
             $array = array();
-            $sql = "select * from tbComponente";
+            $sql = "select * from tbComponente where ativo = 1";
             $sql = $this->pdo->prepare($sql);
             $sql->execute();
             if($sql->rowCount() > 0){

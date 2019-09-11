@@ -1,4 +1,4 @@
-DELIMITER }
+﻿DELIMITER }
 CREATE FUNCTION sfCadastrarComponente(nomeComponente varchar(80),siglaComponente varchar(10)) RETURNS INT
 BEGIN
   IF nomeComponente!='' AND siglaComponente!='' THEN

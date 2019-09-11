@@ -127,7 +127,7 @@
                 }
         }
         public function getAll(){
-                $sql = "select * from tbUsuario where ativo != 0";
+                $sql = "select * from tbUsuario where ativo != 0 and nivel = 2";
                 $sql = $this->pdo->prepare($sql);
                 $sql->execute();
                 if($sql->rowCount() > 0){
