@@ -17,8 +17,10 @@
             $data = $this->getRequestData();
             if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
                 if($method == 'POST'){
-                    if(!empty($data['data'])){
-                        $perguntas = $data['data'];
+                    if(!empty($data['data']) && !empty($data['info'])){
+                        $array['error'] = $this->daoA->insertAtividade($data['info'], $data['data']);
+                    }else{
+                        $array['error'] = 'campos vazios e/ou invalidos';
                     }
                 }else{
                     $array['error'] = 'metodo de requisicao invalido';

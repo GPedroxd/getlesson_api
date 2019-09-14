@@ -3,6 +3,7 @@
 
     use Core\Controller;
     use DAO\UserDAO;
+    use DAO\AlunoDAO;
     use Model\Jwt;
 
     class UserController extends Controller{
@@ -10,6 +11,8 @@
         public function __construct(){
             $this->dao = new UserDAO();
         }
+
+        //Controller Professores
         public function sing_in(){
             $array = array('error'=>'');
             $method = $this->getMethod();
@@ -22,6 +25,8 @@
                     }else{
                         $array['error']= 'accesso negado';
                     }
+                }else{
+                    $array['error'] = 'campos vazios e/ou invalidos';
                 }
             }else{
                 $array ['error'] = 'Método de requisição incompativel';
@@ -92,4 +97,7 @@
             }
             return $this->returnJson($array);
         }
+        //controller Alunos
+
+
     }

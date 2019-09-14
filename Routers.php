@@ -5,12 +5,13 @@
     $routers['/sing-up'] = '/user/sing_up';
     $routers['/user/{id}'] ='/user/view/:id';
     $routers['/user'] = '/user/getAll';
-    $routers['/curso/register'] = '/Curso/register';
+    $routers['/curso/add'] = '/Curso/register';
     $routers['/curso/{id}'] = '/curso/editCurso/:id';
     $routers['/curso'] = '/curso/getAll';
-    $routers['/turma/register'] = '/Turma/register';
+    $routers['/turma/add'] = '/Turma/register';
     $routers['/turma/{id}'] = '/Turma/editTurma/:id';
     $routers['/turma'] = '/Turma/getAll';
-    $routers['/componente/register'] = '/componente/register';
+    $routers['/componente/add'] = '/componente/register';
     $routers['/componente/{id}'] = '/componente/editComponente/:id';
     $routers['/componente'] = '/componente/getAll';
+    $routers['/atividade/add'] = '/atividade/insertAtividade';

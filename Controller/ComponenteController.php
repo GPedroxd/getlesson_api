@@ -18,12 +18,14 @@
             $data = $this->getRequestData();
             if($method == 'POST'){
                 if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
-                    if(!empty($data['nomeComponente']) && !empty($data['siglaComponente'])){
-                        if($this->daoC->register($data['nomeComponente'], $data['siglaComponente'])){
+                    if(!empty($data['nomeComponente']) && !empty($data['siglaComponente']) && !empty($data['idUsuario']) && !empty($data['idTurma'])){
+                        if($this->daoC->register($data['nomeComponente'], $data['siglaComponente'], $data['idUsuario'], $data['idTurma'])){
 
                         }else{
                             $array['error'] = 'falha ao cadastrar';
                         }
+                    }else{
+                        $array['error'] = 'campos vazios e/ou invalidos';
                     }
                 }else{
                     $array['error'] = 'acesso negado';

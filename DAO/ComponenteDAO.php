@@ -5,22 +5,49 @@
     use Model\Componente;
 
     class ComponenteDAO extends DAO{
-        public function register($nome, $sigla, $idUsuarior, $idTurma){
-            if($this->insertComponente($nome, $sigla)){
-                
+        public function register($nome, $sigla, $idusuario, $idTurma){
+            $idcomponente = $this->insertComponente($nome, $sigla);
+            if($idcomponente != 0){
+                $id = $this->addProfessor($idusuario, $idcomponente, $idTurma);
+                if($id!= 0){
+                    return $id;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
             }
         }
+        public function addProfessor($idusuario, $idcomponente, $idTurma){
+            $sql = "insert into tbComponenteProfessor set idTurma = :idturma, idusuario = :idusuario, idComponente = :idComponente;";
+                $sql = $this->pdo->prepare($sql);
+                $sql->bindValue(':idturma', $idTurma);
+                $sql->bindValue(':idusuario', $idusuario);
+                $sql->bindValue(':idComponente', $idcomponente[0]);
+                $sql->execute();
+                $sql2 ="select last_insert_id();";
+                $sql2 = $this->pdo->prepare($sql2);
+                $sql2->execute();
+                if($sql2->rowCount() > 0){
+                    return $sql2->fetch();
+                } else{
+                    return 0;
+                }
+        }
         private function insertComponente($nome, $sigla){
-            $sql = "insert into tbComponente set nomeComponente = :nome,
-                                                                        siglaComponente = :sigla";
+            $sql = "insert into tbComponente set nomeComponente = :nome, siglaComponente = :sigla; ";
             $sql = $this->pdo->prepare($sql);
             $sql->bindValue(":nome", $nome);
             $sql->bindValue(":sigla", $sigla);
             $sql->execute();
-            if($sql->rowCount() > 0){
-                return true;
-            }else{
-                return false;
+            $sql2 ="select last_insert_id();";
+            $sql2 = $this->pdo->prepare($sql2);
+            $sql2 ->execute();
+            if($sql2->rowCount() > 0){
+                $a = $sql2->fetch();
+                return $a[0];
+            } else{
+                return 0;
             }
         }
         public function delete($id){
@@ -65,5 +92,8 @@
                 $array = $sql->fetchAll(\PDO::FETCH_ASSOC);  
             }
             return $array;
+        }
+        public function getComponente($id){
+            
         }
     }

@@ -67,6 +67,7 @@ CREATE TABLE tbMatricula(
 
 CREATE TABLE tbAtividade(
 	idAtividade INT PRIMARY KEY AUTO_INCREMENT
+    ,   nomeAtividade VARCHAR (100) NOT NULL  
     ,	idComponenteProfessor INT NOT NULL
     ,	dataHoraDeCriacao DATETIME NOT NULL
     ,	dataDeEntrega DATE NOT NULL
