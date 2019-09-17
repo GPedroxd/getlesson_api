@@ -8,7 +8,20 @@
             
         }
         public function getAtividade($idAtividade){
-
+            $data = array();
+            $sql = "select * from tbatividade where idatividade = :id;";
+            $sql = $this->pdo->prepare($sql);
+            $sql->bindValue(':id', $idAtividade);
+            $sql->execute(); 
+            if($sql->rowCount() > 0){
+                $b = $sql->fetchAll(\PDO::FETCH_ASSOC); 
+                $info =$b[0];
+                $data = $this->getPerguntas($info['idAtividade']);
+                $resp = array('info' =>$info);
+                $resp ['data'] = $data;
+                return $resp;
+            }
+            return 'Nenhuma Atividade Encontrada';
         }
         public function insertAtividade($nome, $data){
             $sql = "insert into tbAtividade set nomeAtividade = :nome, dataHoraDeCriacao = :dataatividade,
@@ -73,10 +86,33 @@
                 }
             }
         }
-        /*private function insertPergunta($idAtividade, $pergunta){
-
+        public function getPerguntas($id){
+            $resp = array();
+            $sql = "select * from tbPergunta where idAtividade = :id;";
+            $sql = $this->pdo->prepare($sql);
+            $sql->bindValue(':id', $id);
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                $info = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                for($i = 0; $i < count($info); $i++){
+                    $a = $info[$i];
+                    $b = $this->getRespostas($a['idPergunta']);
+                    $resp []= [$info[$i], $b];
+                }
+            }
+            return $resp; 
         }
-        private function insertRespostas($idPergunta, $array){
-
-        }*/
+        public function getRespostas($id){
+            $resp = array();
+            $sql = "select * from tbResposta where idPergunta = :id;";
+            $sql = $this->pdo->prepare($sql);
+            $sql->bindValue(':id', $id);
+            $sql->execute();
+            if($sql ->rowCount() > 0){
+                $resp = $sql->fetchAll(\PDO::FETCH_ASSOC);
+                return $resp;
+            }
+            return 'erro';
+        }
+        
     }

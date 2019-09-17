@@ -15,3 +15,4 @@
     $routers['/componente/{id}'] = '/componente/editComponente/:id';
     $routers['/componente'] = '/componente/getAll';
     $routers['/atividade/add'] = '/atividade/insertAtividade';
+    $routers['/atividade/get/{id}'] = '/atividade/getAtividade/:id';

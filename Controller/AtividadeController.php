@@ -34,6 +34,18 @@
 
         }
         public function getAtividade($idAtividade){
-
+            $array = array('error' => '');
+            $method = $this->getMethod();
+            $data = $this->getRequestData();
+            if($method == 'GET'){
+                if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
+                    $array['data'] = $this->daoA->getAtividade($idAtividade);
+                }else{
+                    $array['error'] = 'acesso negado';
+                }
+            }else{
+                $array['error'] = 'Metodo de requisição indisponivel';
+            }
+            return $this->returnJson($array);
         }
     }
