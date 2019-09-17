@@ -51,15 +51,14 @@
                         $this->addResposta($idpergunta[0], $data[1]);
                     }
                 }else{
-                    return 4;
+                    return false;
                 }
             }else{
-                return 3;
+                return false;
             }
         }
         public function addResposta($id, $data){
             $size = count($data);
-            $a = 0;
             for($i = 0; $i < $size; $i++){
                 $r = $data[$i];
                 $sql = "insert into tbresposta set idpergunta = :idpergunta, resposta = :resposta, certa = :certa";
@@ -68,7 +67,9 @@
                 $sql->bindValue(':resposta', $r[0]);
                 $sql->bindValue(':certa', $r[1]);
                 if($sql->execute()){
-                    $a++;
+                    return '';
+                }else{
+                    return false;
                 }
             }
         }

@@ -65,6 +65,12 @@
             if(!empty($data['nomeComponente'])){
                 $toChange['nomeComponente'] = $data['nomeComponente'];
             }
+            if(!empty($data['idTurma'])){
+                $toChange['idTurma'] = $data['idTurma'];
+            }
+            if(!empty($data['idUsuario'])){
+                $toChange['idUsuario'] = $data['idUsuario'];
+            }
             if(!empty($data['ativo'])){
                 $toChange['ativo'] = $data['ativo'];
             }
@@ -73,19 +79,23 @@
                 foreach($toChange as $k => $v){
                     $fields[] = $k.' = :'.$k;
                 }
-                $sql = "update tbComponente set ".implode(',',$fields )." where idComponente = :id";
+                $sql = "update tbcomponenteprofessor set ".implode(',',$fields )." where idcomponenteprofessor = :id;";
                 $sql = $this->pdo->prepare($sql);
                 $sql->bindValue(':id', $id);
                 foreach($toChange as $k => $v){
                     $sql->bindValue(':'.$k, $v);
                 }
-                $sql->execute();
-                return '';
+                
+                return $sql->execute();
             }
         }
         public function getAll(){
             $array = array();
-            $sql = "select * from tbComponente where ativo = 1";
+            $sql = "select tbcomponente.nomeComponente, tbcomponente.siglaComponente, tbcomponenteprofessor.idComponenteProfessor,
+            tbcomponenteprofessor.idTurma, tbcomponenteprofessor.idUsuario from tbcomponenteprofessor
+            inner join tbusuario on tbusuario.idUsuario = tbcomponenteprofessor.idUsuario inner join
+            tbturma on tbturma.idTurma = tbcomponenteprofessor.idTurma inner join 
+            tbcomponente on tbcomponente.idComponente = tbcomponenteprofessor.idComponente";
             $sql = $this->pdo->prepare($sql);
             $sql->execute();
             if($sql->rowCount() > 0){
