@@ -48,4 +48,20 @@
             }
             return $this->returnJson($array);
         }
+
+        public function fazerAtividade(){
+            $array = array('error' => '', 'info'=>'');
+            $method = $this->getMethod();
+            $data = $this->getRequestData();
+            if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
+                if(!empty($data['data'])){
+                    $array['data'] = $this->daoA->fazerAtividade($data['data']);
+                }else{
+                    $array['error'] = 'nenhuma informação enviada';
+                }
+            }else{
+                $array['error'] = 'acesso negado';
+            }
+            return $this->returnJson($array);
+        }
     }
