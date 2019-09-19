@@ -64,7 +64,7 @@
                 $sql->bindValue(':resposta', $r[0]);
                 $sql->bindValue(':certa', $r[1]);
                 if($sql->execute()){
-                    return '';
+                    
                 }else{
                     return false;
                 }
