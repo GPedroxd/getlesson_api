@@ -74,4 +74,22 @@
             }
             $this->returnJson($array);
         }
+        public function getByUsuario($id){
+            $array = array('error'=>'');
+            $data = $this->getRequestData();
+            $method = $this->getMethod();
+            if($method == 'GET'){
+                if(!empty($data['jwt']) && $this->daoU->validate_jwt($data['jwt'])){
+                    $array['error'] = $this->daoC->getByUsuario($id);                    
+                }else{
+                    $array['error'] = 'acesso negado';
+                }
+            }else{
+                $array['error'] = 'Metodo invalido';
+            }
+            return $this->returnJson($array);
+        }
+        public function getByTurma($id){
+
+        }
     }

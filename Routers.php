@@ -13,6 +13,8 @@
     $routers['/turma'] = '/Turma/getAll';
     $routers['/componente/add'] = '/componente/register';
     $routers['/componente/{id}'] = '/componente/editComponente/:id';
+    $routers['/componente/user/{id}'] = '/componente/getByUsuario/:id';
     $routers['/componente'] = '/componente/getAll';
     $routers['/atividade/add'] = '/atividade/insertAtividade';
     $routers['/atividade/get/{id}'] = '/atividade/getAtividade/:id';
+    $routers['/atividade/fazer/'] = '/atividade/fazerAtividade';

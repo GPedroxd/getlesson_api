@@ -103,7 +103,19 @@
             }
             return $array;
         }
-        public function getComponente($id){
-            
+        public function getByUsuario($id){
+            $array = '';
+            $sql = "select tbcomponente.nomeComponente, tbcomponente.siglaComponente, tbcomponenteprofessor.idComponenteProfessor,
+            tbcomponenteprofessor.idTurma, tbcomponenteprofessor.idUsuario, tbcomponente.idcomponente from tbcomponenteprofessor
+            inner join tbusuario on tbusuario.idUsuario = tbcomponenteprofessor.idUsuario inner join
+            tbturma on tbturma.idTurma = tbcomponenteprofessor.idTurma inner join 
+            tbcomponente on tbcomponente.idComponente = tbcomponenteprofessor.idComponente where tbcomponente.ativo = 1 and tbComponenteProfessor.idUsuario = :id";
+            $sql = $this->pdo->prepare($sql);
+            $sql->bindValue(':id', $id);
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                $array = $sql->fetchAll(\PDO::FETCH_ASSOC);  
+            }
+            return $array;
         }
     }

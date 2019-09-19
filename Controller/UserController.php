@@ -22,6 +22,7 @@
                     $user = $this->dao->login($data['emailUsuario'], $data['senhaUsuario']);
                     if($user){
                         $array ['jwt'] = $this->dao->createJwt($user);
+                        $array ['idUsuario'] = $user->getIdusuario();
                     }else{
                         $array['error']= 'accesso negado';
                     }

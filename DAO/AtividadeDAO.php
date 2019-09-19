@@ -113,7 +113,7 @@
                 $resp = $sql->fetchAll(\PDO::FETCH_ASSOC);
                 return $resp;
             }
-            return 'erro';
+            return '';
         }
         //FAZER ATIVIDADE;
         public function fazerAtividade($data){
@@ -130,12 +130,24 @@
                 if($sql->execute()){
                     $a = $sql->fetch();
                     $this->submeterRespostas($a[0], $datas);
-                    $this->calcularMenca($a[0], $info[2]);
+                    $menca = $this->calcularMenca($a[0], $info[2]);
+                    $g = "update tbAlunoAtividade set idMenca = :id where idAlunoAtividade = :ida";
+                    $g = $this->pdo->prepare($g);
+                    $g->bindValue(':id', $menca);
+                    $g->bindValue(':ida', $a[0]);
+                    if($g->execute()){
+                        $r = "select * from tbAlunoAtividade where idAlunoAtividade = :id;";
+                        $r = $this->pdo->prepare($r);
+                        $r->bindValue(':id', $a[0]);
+                        if($r->execute()){
+                            return $r->fetchAll(\PDO::FETCH_ASSOC);
+                        }
+                    }
                 }else{
-                    return 'AD';
+                    return 'AD2';
                 }
             }else{
-                return 'AD';
+                return 'AD1';
             }
             return '';
         }
